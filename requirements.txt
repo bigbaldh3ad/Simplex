@@ -1,0 +1,14 @@
+Django==5.2.2
+pillow==10.3.0
+crispy-tailwind==1.0.3
+djangorestframework==3.15.2
+django-environ==0.11.2
+psycopg2-binary==2.9.9
+drf-spectacular==0.28.0
+django-extensions==4.1
+numpy==2.2.5
+matplotlib==3.10.3
+sympy==1.14.0
+openai==1.88.0
+python-dotenv==1.1.0 
+weasyprint==65.1

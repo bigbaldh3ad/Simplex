@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Video Background Section -->
+<section class="video-hero relative h-screen flex items-center justify-center overflow-hidden">
+  <!-- Video de fondo matemático -->
+  <video autoplay muted loop class="absolute z-0 w-auto min-w-full min-h-full max-w-none">
+    <source src="{% static 'metodo/video/v.mp4' %}" type="video/mp4">
+    <!-- Fallback image -->
+    <img src="{% static 'metodo/img/1.jpg' %}" alt="Fondo matemático" class="absolute inset-0 w-full h-full object-cover">
+  </video>
+  
+  <!-- Overlay oscuro -->
+  <div class="absolute inset-0 bg-black opacity-50 z-1"></div>
+  
+  <!-- Contenido principal -->
+  <div class="relative z-10 text-center px-4 max-w-6xl mx-auto">
+    <h1 class="text-5xl md:text-7xl font-bold mb-6 text-white animate-fade-in-down">
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">MathOpt</span>
+    </h1>
+    <p class="text-xl md:text-2xl mb-8 text-blue-100 animate-fade-in-up">
+      Plataforma avanzada de investigación de operaciones con visualización matemática interactiva
+    </p>
+    
+    <!-- Efecto de partículas matemáticas (canvas) -->
+    <canvas id="mathCanvas" class="absolute inset-0 z-0 opacity-30 pointer-events-none"></canvas>
+    
+    <div class="animate-fade-in-up delay-100">
+      <a href="{% url 'add_simplex' %}" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 mr-4">
+        <i class="fas fa-play mr-3"></i> Comenzar ahora
+      </a>
+      <a href="#features" class="inline-flex items-center px-8 py-4 border-2 border-white text-white text-lg font-semibold rounded-lg hover:bg-white hover:text-blue-900 transition-all duration-300">
+        <i class="fas fa-chart-line mr-3"></i> Explorar herramientas
+      </a>
+    </div>
+    
+    <!-- Scroll indicator animado -->
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <i class="fas fa-angle-down text-3xl text-white opacity-70"></i>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section with Mathematical Visualizations -->
+<section id="features" class="py-20 bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">
+      <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">Herramientas de Optimización</span>
+    </h2>
+    
+    <div class="grid md:grid-cols-3 gap-10">
+      <!-- Card 1 - Simplex -->
+      <div class="feature-card bg-gray-800 rounded-xl overflow-hidden shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 transform hover:-translate-y-2">
+        <div class="relative h-48 bg-gray-700 overflow-hidden">
+          <img src="{% static 'metodo/img/2.jpg' %}" alt="Método Simplex" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+        </div>
+        <div class="p-6">
+          <div class="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center text-2xl text-white mb-4 -mt-12 relative z-10 shadow-lg">
+            <i class="fas fa-calculator"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-3">Método Simplex</h3>
+          <p class="text-gray-300 mb-5">Resolución avanzada de problemas de programación lineal con visualización interactiva del algoritmo.</p>
+          <a href="{% url 'add_simplex' %}" class="inline-flex items-center text-blue-400 hover:text-blue-300 font-medium">
+            Probar ahora <i class="fas fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Card 2 - Otros Métodos -->
+      <div class="feature-card bg-gray-800 rounded-xl overflow-hidden shadow-2xl hover:shadow-green-500/20 transition-all duration-500 transform hover:-translate-y-2">
+        <div class="relative h-48 bg-gray-700 overflow-hidden">
+          <img src="{% static 'metodo/img/3.jpg' %}" alt="Métodos Matemáticos" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+        </div>
+        <div class="p-6">
+          <div class="w-14 h-14 bg-green-600 rounded-full flex items-center justify-center text-2xl text-white mb-4 -mt-12 relative z-10 shadow-lg">
+            <i class="fas fa-project-diagram"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-3">Métodos Avanzados</h3>
+          <p class="text-gray-300 mb-5">Próximamente: Programación entera, optimización no lineal y análisis de sensibilidad.</p>
+          <button class="inline-flex items-center text-gray-500 font-medium cursor-not-allowed">
+            Próximamente <i class="fas fa-clock ml-2"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Card 3 - Historial -->
+      <div class="feature-card bg-gray-800 rounded-xl overflow-hidden shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 transform hover:-translate-y-2">
+        <div class="relative h-48 bg-gray-700 overflow-hidden">
+          <img src="{% static 'metodo/img/4.jpg' %}" alt="Visualización de Datos" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+        </div>
+        <div class="p-6">
+          <div class="w-14 h-14 bg-purple-600 rounded-full flex items-center justify-center text-2xl text-white mb-4 -mt-12 relative z-10 shadow-lg">
+            <i class="fas fa-history"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-3">Historial Inteligente</h3>
+          <p class="text-gray-300 mb-5">Analiza y compara tus cálculos anteriores con visualizaciones interactivas.</p>
+          <a href="{% url 'list_simplex' %}" class="inline-flex items-center text-purple-400 hover:text-purple-300 font-medium">
+            Ver historial <i class="fas fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mathematical Visualization Section -->
+<section class="py-20 bg-gray-100">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Visualización Matemática Interactiva</h2>
+        <p class="text-lg text-gray-600 mb-8">Explora algoritmos de optimización a través de representaciones visuales dinámicas que te ayudarán a comprender mejor los conceptos matemáticos.</p>
+        
+        <div class="space-y-6">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 bg-blue-100 p-3 rounded-lg text-blue-600 mr-4">
+              <i class="fas fa-chart-line text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-2">Gráficos Dinámicos</h3>
+              <p class="text-gray-600">Visualiza cómo evolucionan las soluciones en tiempo real durante el proceso de optimización.</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start">
+            <div class="flex-shrink-0 bg-purple-100 p-3 rounded-lg text-purple-600 mr-4">
+              <i class="fas fa-cogs text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-2">Simulaciones Interactivas</h3>
+              <p class="text-gray-600">Modifica parámetros y observa cómo afectan a la solución óptima del problema.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="relative h-96 bg-white rounded-xl shadow-lg overflow-hidden">
+        <!-- Lienzo para visualización matemática interactiva -->
+        <div id="mathVisualization" class="w-full h-full flex items-center justify-center bg-gray-900">
+          <p class="text-white">Cargando visualización interactiva...</p>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 to-transparent p-4">
+          <p class="text-sm text-white text-center">Usa el mouse para interactuar con la visualización</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+{% if not user.is_authenticated %}
+<section class="py-20 bg-gradient-to-r from-blue-900 to-purple-900 text-white">
+  <div class="max-w-4xl mx-auto px-4 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6">¿Listo para optimizar tus problemas?</h2>
+    <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">Regístrate ahora y desbloquea todo el potencial de nuestras herramientas matemáticas.</p>
+    
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <a href="{% url 'register' %}" class="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-900 font-bold rounded-lg shadow-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300">
+        <i class="fas fa-user-plus mr-3"></i> Crear cuenta gratis
+      </a>
+      <a href="{% url 'login' %}" class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-bold rounded-lg hover:bg-white hover:text-blue-900 transition-all duration-300">
+        <i class="fas fa-sign-in-alt mr-3"></i> Iniciar sesión
+      </a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- Math Animation Footer -->
+<footer class="bg-gray-900 text-white py-12">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="mb-6 md:mb-0">
+        <h3 class="text-2xl font-bold mb-2">MathOpt</h3>
+        <p class="text-gray-400">Plataforma avanzada de investigación de operaciones</p>
+      </div>
+      
+      <div class="flex space-x-6">
+        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+          <i class="fab fa-twitter text-xl"></i>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+          <i class="fab fa-github text-xl"></i>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+          <i class="fab fa-linkedin text-xl"></i>
+        </a>
+      </div>
+    </div>
+    
+    <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+      <p>© 2023 MathOpt. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Styles and Scripts -->
+<style>
+  .video-hero {
+    min-height: 100vh;
+  }
+  
+  .animate-fade-in-down {
+    animation: fadeInDown 1s ease-out forwards;
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 1s ease-out forwards;
+  }
+  
+  .delay-100 {
+    animation-delay: 0.1s;
+  }
+  
+  .animate-bounce {
+    animation: bounce 2s infinite;
+  }
+  
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0) translateX(-50%);
+    }
+    40% {
+      transform: translateY(-20px) translateX(-50%);
+    }
+    60% {
+      transform: translateY(-10px) translateX(-50%);
+    }
+  }
+  
+  .feature-card {
+    transition: all 0.3s ease;
+  }
+  
+  .feature-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Canvas Animation for Mathematical Elements
+  const canvas = document.getElementById('mathCanvas');
+  const ctx = canvas.getContext('2d');
+  
+  // Set canvas size
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+  
+  // Mathematical symbols for animation
+  const symbols = ['Σ', '∫', '∂', 'Δ', '∇', '√', '∞', 'π', 'θ', 'λ'];
+  const particles = [];
+  
+  // Create particles
+  for (let i = 0; i < 50; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 20 + 10,
+      speed: Math.random() * 2 + 1,
+      symbol: symbols[Math.floor(Math.random() * symbols.length)],
+      opacity: Math.random() * 0.5 + 0.1
+    });
+  }
+  
+  // Animation loop
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    particles.forEach(particle => {
+      ctx.font = `${particle.size}px Arial`;
+      ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`;
+      ctx.fillText(particle.symbol, particle.x, particle.y);
+      
+      particle.y += particle.speed;
+      if (particle.y > canvas.height) {
+        particle.y = -20;
+        particle.x = Math.random() * canvas.width;
+      }
+    });
+    
+    requestAnimationFrame(animate);
+  }
+  
+  animate();
+  
+  // Interactive Math Visualization
+  const mathViz = document.getElementById('mathVisualization');
+  
+  // This would be replaced with actual visualization library like D3.js, Three.js, etc.
+  mathViz.innerHTML = `
+    <div class="text-center p-8">
+      <i class="fas fa-calculator text-5xl text-blue-400 mb-4"></i>
+      <h3 class="text-xl font-semibold text-white mb-2">Visualización Interactiva</h3>
+      <p class="text-gray-400">Implementa aquí una visualización matemática interactiva</p>
+    </div>
+  `;
+});
+</script>
+{% endblock %}

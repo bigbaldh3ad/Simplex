@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-3xl mx-auto">
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+      <div class="bg-blue-600 px-6 py-4">
+        <h2 class="text-2xl font-bold text-white text-center">Nuevo Problema de Programación Lineal</h2>
+      </div>
+      
+      <div class="px-6 py-8">
+        <form method="post" class="space-y-6" novalidate>
+          {% csrf_token %}
+          
+          {% if form.non_field_errors %}
+          <div class="bg-red-50 border-l-4 border-red-500 p-4">
+            {% for error in form.non_field_errors %}
+              <p class="text-red-700">{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+          
+          <!-- Función Objetivo -->
+          <div>
+            <label for="{{ form.objetivo.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+              Función Objetivo
+            </label>
+            <div class="mt-1 relative rounded-md shadow-sm">
+              {{ form.objetivo }}
+            </div>
+            <p class="mt-1 text-sm text-gray-500">{{ form.objetivo.help_text }}</p>
+            {% for error in form.objetivo.errors %}
+              <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+            {% endfor %}
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Tipo de Optimización -->
+            <div>
+              <label for="{{ form.tipo_optimizacion.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                Tipo de Optimización
+              </label>
+              <div class="mt-1">
+                {{ form.tipo_optimizacion }}
+              </div>
+            </div>
+            
+            <!-- Variables de Decisión -->
+            <div>
+              <label for="{{ form.variables_decision.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                Número de Variables
+              </label>
+              <div class="mt-1">
+                {{ form.variables_decision }}
+              </div>
+              <p class="mt-1 text-sm text-gray-500">{{ form.variables_decision.help_text }}</p>
+              {% for error in form.variables_decision.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+              {% endfor %}
+            </div>
+          </div>
+          
+          <!-- Restricciones -->
+          <div>
+            <label for="{{ form.restricciones.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+              Restricciones
+            </label>
+            <div class="mt-1">
+              {{ form.restricciones }}
+            </div>
+            <p class="mt-1 text-sm text-gray-500">{{ form.restricciones.help_text }}</p>
+            {% for error in form.restricciones.errors %}
+              <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+            {% endfor %}
+          </div>
+          
+          <!-- Configuraciones Avanzadas -->
+          <div class="pt-2">
+            <button type="button" @click="advancedOpen = !advancedOpen" 
+                    class="flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium">
+              <span>Configuraciones Avanzadas</span>
+              <svg :class="{'rotate-180': advancedOpen}" class="ml-2 h-5 w-5 transform transition-transform" 
+                   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            
+            <div x-show="advancedOpen" x-transition class="mt-4 space-y-6 border-t pt-4">
+              <!-- Tolerancia -->
+              <div>
+                <label for="{{ form.tolerancia.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                  Tolerancia
+                </label>
+                <div class="mt-1">
+                  {{ form.tolerancia }}
+                </div>
+                <p class="mt-1 text-sm text-gray-500">{{ form.tolerancia.help_text }}</p>
+                {% for error in form.tolerancia.errors %}
+                  <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+                {% endfor %}
+              </div>
+              
+              <!-- Máximo de Iteraciones -->
+              <div>
+                <label for="{{ form.max_iteraciones.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                  Máximo de Iteraciones
+                </label>
+                <div class="mt-1">
+                  {{ form.max_iteraciones }}
+                </div>
+                <p class="mt-1 text-sm text-gray-500">{{ form.max_iteraciones.help_text }}</p>
+                {% for error in form.max_iteraciones.errors %}
+                  <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          
+          <div class="pt-4">
+            <button type="submit" 
+                    class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              </svg>
+              Resolver Problema
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('form', () => ({
+    advancedOpen: false,
+    examples: [
+      {name: 'Ejemplo 2D', value: '3x1 + 2x2'},
+      {name: 'Ejemplo 3D', value: '2x1 + 4x2 - 3x3'}
+    ],
+    insertExample(example) {
+      document.getElementById('{{ form.objetivo.id_for_label }}').value = example;
+    }
+  }));
+  
+  // Validación en tiempo real
+  const objetivoInput = document.getElementById('{{ form.objetivo.id_for_label }}');
+  objetivoInput.addEventListener('input', function() {
+    this.value = this.value.replace(/[^0-9xX\+\-\*\/\.\s]/g, '');
+  });
+});
+</script>
+{% endblock %}
